@@ -1,5 +1,7 @@
 require 'nokogiri'
 
+MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
+
 class ServerList
   def initialize(xml)
     @doc = Nokogiri::XML(xml)
@@ -24,7 +26,6 @@ require 'json'
 require 'date'
 
 class Server
-  MONTHS_TIL_EXPIRED = 3
   attr_reader :id, :last_seen
 
   def initialize(id: , last_seen:)
