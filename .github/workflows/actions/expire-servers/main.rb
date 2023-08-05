@@ -37,6 +37,8 @@ class Server
   end
 
   def expired?
+    return true if @last_seen.nil?
+
     @last_seen <= DateTime.now.prev_month(MONTHS_TIL_EXPIRED)
   end
 end
@@ -60,9 +62,11 @@ module TreeStats
       JSON
         .parse(body)
         .map do |server|
+          last_seen = server.dig("status", "last_seen")
+
           Server.new(
             id: server["guid"],
-            last_seen: DateTime.parse(server.dig("status", "last_seen"))
+            last_seen: last_seen.nil? ? nil : DateTime.parse(last_seen)
           )
         end
     end
