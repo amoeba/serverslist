@@ -19,6 +19,7 @@ jobs:
       uses: ./.github/workflows/actions/expire-servers
       env:
         MONTHS_TIL_EXPIRED: 1
+        BASE_DIR: "/github/workspace/"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
       with:
