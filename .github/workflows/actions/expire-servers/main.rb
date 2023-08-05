@@ -5,7 +5,7 @@ require "net/http"
 require "nokogiri"
 require "uri"
 
-MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
+MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"].to_i || 1
 BASE_DIR = ENV["BASE_DIR"] || "./"
 FILE_PATH = BASE_DIR + "Servers.xml"
 KEEP_PATH = BASE_DIR + ".github/workflows/keep"
