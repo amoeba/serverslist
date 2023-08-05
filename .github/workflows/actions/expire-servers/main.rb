@@ -1,4 +1,4 @@
-require 'nokogiri'
+require "nokogiri"
 
 MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
 
@@ -10,7 +10,7 @@ class ServerList
   def remove(ids)
     @doc
       .css("ArrayOfServerItem ServerItem")
-      .select { |e| ids.include?(e.at_css('id').content) }
+      .select { |e| ids.include?(e.at_css("id").content) }
       .each(&:remove)
   end
 
@@ -19,16 +19,16 @@ class ServerList
   end
 end
 
-require 'uri'
-require 'net/http'
-require 'json'
+require "uri"
+require "net/http"
+require "json"
 
-require 'date'
+require "date"
 
 class Server
   attr_reader :id, :last_seen
 
-  def initialize(id: , last_seen:)
+  def initialize(id:, last_seen:)
     @id = id
     @last_seen = last_seen
   end
@@ -50,7 +50,7 @@ module TreeStats
     end
 
     def self.fetch
-      Net::HTTP.get_response(URI('https://servers.treestats.net/api/servers/'))
+      Net::HTTP.get_response(URI("https://servers.treestats.net/api/servers/"))
     end
 
     def self.parse(body)
@@ -58,22 +58,22 @@ module TreeStats
         .parse(body)
         .map do |server|
           Server.new(
-            id: server['guid'],
-            last_seen: DateTime.parse(server.dig('status', 'last_seen'))
+            id: server["guid"],
+            last_seen: DateTime.parse(server.dig("status", "last_seen"))
           )
         end
     end
   end
 end
 
-FILE_PATH = '/github/workspace/Servers.xml'
-KEEP_PATH = '/github/workspace/keep'
+FILE_PATH = "/github/workspace/Servers.xml"
+KEEP_PATH = "/github/workspace/keep"
 
 xml = File.read(FILE_PATH)
 server_list = ServerList.new(xml)
 expired = TreeStats::Servers.expired
 
-require 'csv'
+require "csv"
 keep_ids = CSV.read(KEEP_PATH).flatten
 
 ids = expired.map(&:id).reject { |id| keep_ids.include?(id) }
