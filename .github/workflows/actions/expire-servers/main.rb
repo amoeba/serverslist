@@ -8,6 +8,7 @@ require "uri"
 MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
 FILE_PATH = "/github/workspace/Servers.xml"
 KEEP_PATH = "/github/workspace/.github/workflows/keep"
+TREESTATS_API_URI = "https://servers.treestats.net/api/servers/"
 
 class ServerList
   def initialize(xml)
@@ -51,7 +52,7 @@ module TreeStats
     end
 
     def self.fetch
-      Net::HTTP.get_response(URI("https://servers.treestats.net/api/servers/"))
+      Net::HTTP.get_response(URI(TREESTATS_API_URI))
     end
 
     def self.parse(body)
