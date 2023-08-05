@@ -7,7 +7,7 @@ require "uri"
 
 MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
 FILE_PATH = "/github/workspace/Servers.xml"
-KEEP_PATH = "/github/workspace/keep"
+KEEP_PATH = "/github/workspace/.github/workflows/keep"
 
 class ServerList
   def initialize(xml)
