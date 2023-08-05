@@ -6,8 +6,9 @@ require "nokogiri"
 require "uri"
 
 MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
-FILE_PATH = "/github/workspace/Servers.xml"
-KEEP_PATH = "/github/workspace/.github/workflows/keep"
+BASE_DIR = ENV["BASE_DIR"] || "./"
+FILE_PATH = BASE_DIR + "Servers.xml"
+KEEP_PATH = BASE_DIR + ".github/workflows/keep"
 TREESTATS_API_URI = "https://servers.treestats.net/api/servers/"
 
 class ServerList
