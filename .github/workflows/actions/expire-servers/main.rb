@@ -5,7 +5,7 @@ MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
 class ServerList
   def initialize(xml)
     @doc = Nokogiri::XML(xml)
-  end 
+  end
 
   def remove(ids)
     @doc
@@ -13,7 +13,7 @@ class ServerList
       .select { |e| ids.include?(e.at_css('id').content) }
       .each(&:remove)
   end
-  
+
   def to_xml
     @doc.to_s
   end
@@ -48,15 +48,15 @@ module TreeStats
     def self.expired
       all.select(&:expired?)
     end
-  
+
     def self.fetch
       Net::HTTP.get_response(URI('https://servers.treestats.net/api/servers/'))
     end
-  
+
     def self.parse(body)
       JSON
         .parse(body)
-        .map do |server| 
+        .map do |server|
           Server.new(
             id: server['guid'],
             last_seen: DateTime.parse(server.dig('status', 'last_seen'))
