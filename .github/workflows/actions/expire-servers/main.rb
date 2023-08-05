@@ -6,6 +6,8 @@ require "nokogiri"
 require "uri"
 
 MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
+FILE_PATH = "/github/workspace/Servers.xml"
+KEEP_PATH = "/github/workspace/keep"
 
 class ServerList
   def initialize(xml)
@@ -66,9 +68,6 @@ module TreeStats
 end
 
 def run
-  FILE_PATH = "/github/workspace/Servers.xml"
-  KEEP_PATH = "/github/workspace/keep"
-
   xml = File.read(FILE_PATH)
   server_list = ServerList.new(xml)
   expired = TreeStats::Servers.expired
