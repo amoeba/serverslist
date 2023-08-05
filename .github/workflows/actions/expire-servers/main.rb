@@ -1,4 +1,9 @@
+require "csv"
+require "date"
+require "json"
+require "net/http"
 require "nokogiri"
+require "uri"
 
 MONTHS_TIL_EXPIRED = ENV["MONTHS_TIL_EXPIRED"] || 1
 
@@ -18,12 +23,6 @@ class ServerList
     @doc.to_s
   end
 end
-
-require "uri"
-require "net/http"
-require "json"
-
-require "date"
 
 class Server
   attr_reader :id, :last_seen
@@ -73,7 +72,6 @@ xml = File.read(FILE_PATH)
 server_list = ServerList.new(xml)
 expired = TreeStats::Servers.expired
 
-require "csv"
 keep_ids = CSV.read(KEEP_PATH).flatten
 
 ids = expired.map(&:id).reject { |id| keep_ids.include?(id) }
