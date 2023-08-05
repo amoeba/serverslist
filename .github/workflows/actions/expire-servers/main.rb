@@ -65,16 +65,22 @@ module TreeStats
   end
 end
 
-FILE_PATH = "/github/workspace/Servers.xml"
-KEEP_PATH = "/github/workspace/keep"
+def run
+  FILE_PATH = "/github/workspace/Servers.xml"
+  KEEP_PATH = "/github/workspace/keep"
 
-xml = File.read(FILE_PATH)
-server_list = ServerList.new(xml)
-expired = TreeStats::Servers.expired
+  xml = File.read(FILE_PATH)
+  server_list = ServerList.new(xml)
+  expired = TreeStats::Servers.expired
 
-keep_ids = CSV.read(KEEP_PATH).flatten
+  keep_ids = CSV.read(KEEP_PATH).flatten
 
-ids = expired.map(&:id).reject { |id| keep_ids.include?(id) }
-server_list.remove(ids)
+  ids = expired.map(&:id).reject { |id| keep_ids.include?(id) }
+  server_list.remove(ids)
 
-File.write(FILE_PATH, server_list.to_xml)
+  File.write(FILE_PATH, server_list.to_xml)
+end
+
+if __FILE__ == $0
+  run
+end
