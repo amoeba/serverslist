@@ -23,7 +23,7 @@ jobs:
     - name: Fetch origin
       run: git fetch origin
     - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v
+      uses: mxschmitt/action-tmate@v3
     - name: Extract address and port
       id: extract
       run: |
