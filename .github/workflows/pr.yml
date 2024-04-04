@@ -1,0 +1,24 @@
+name: Check PR
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v3
+    - name: Checkout ac-server-monitor
+      uses: actions/checkout@v4
+      with:
+        repository: 'amoeba/ac-server-monitor'
+        path: 'ac-server-monitor'
+    - name: Build ac-server-monitor
+      working-directory: ./ac-server-monitor
+      run: go build
+    - name: Run ac-server-monitor
+      working-directory: ./ac-server-monitor
+      run: ./monitor -check play.coldeve.online:9000
