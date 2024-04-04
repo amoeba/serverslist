@@ -30,4 +30,4 @@ jobs:
         CHECK_ADDRESS: ${{ steps.extract.outputs.CHECK_ADDRESS }}
         CHECK_PORT: ${{ steps.extract.outputs.CHECK_PORT }}
       working-directory: ./ac-server-monitor
-      run: ./monitor -check $ADDRESS:$PORT
+      run: ./monitor -check $CHECK_ADDRESS:$CHECK_PORT
