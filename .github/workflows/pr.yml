@@ -20,8 +20,6 @@ jobs:
     - name: Build ac-server-monitor
       working-directory: ./ac-server-monitor
       run: go build
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
     - name: Extract address and port
       id: extract
       run: |
