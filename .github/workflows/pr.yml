@@ -20,14 +20,13 @@ jobs:
     - name: Build ac-server-monitor
       working-directory: ./ac-server-monitor
       run: go build
+    - name: Fetch origin
+      run: git fetch origin
     - name: Extract address and port
       id: extract
       run: |
-        git fetch origin
-        export ADDRESS=$(git diff origin/master..HEAD | grep -E "^[+]{1} " | grep -E "server_host" | grep -o -E ">([^<]+)<" | grep -o -E "[^<>]+")
-        export PORT=$(git diff origin/master..HEAD | grep -A 1 -E "^[+]{1} " | grep -A 1 -E "server_host"| grep -E "server_port" | grep -o -E "\d+")
-        echo "CHECK_ADDRESS=$ADDRESS" >> "$GITHUB_OUTPUT"
-        echo "CHECK_PORT=$PORT" >> "$GITHUB_OUTPUT"
+        echo "CHECK_ADDRESS=$(git diff origin/master..HEAD | grep -E "^[+]{1} " | grep -E "server_host" | grep -o -E ">([^<]+)<" | grep -o -E "[^<>]+")" >> "$GITHUB_OUTPUT"
+        echo "CHECK_PORT=$(git diff origin/master..HEAD | grep -A 1 -E "^[+]{1} " | grep -A 1 -E "server_host"| grep -E "server_port" | grep -o -E "\d+")" >> "$GITHUB_OUTPUT"
     - name: Check server
       env:
         CHECK_ADDRESS: ${{ steps.extract.outputs.CHECK_ADDRESS }}
