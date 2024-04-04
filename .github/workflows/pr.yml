@@ -25,8 +25,8 @@ jobs:
     - name: Extract address and port
       id: extract
       run: |
-        echo "CHECK_ADDRESS=$(git diff origin/master..HEAD | grep -E "^[+]{1} " | grep -E "server_host" | grep -o -E ">([^<]+)<" | grep -o -E "[^<>]+" | head -n 1)" >> "$GITHUB_OUTPUT"
-        echo "CHECK_PORT=$(git diff origin/master..HEAD | grep -A 1 -E "^[+]{1} " | grep -E "server_port" | grep -o -E "\d+" | head -n 1)" >> "$GITHUB_OUTPUT"
+        echo "CHECK_ADDRESS=$(git diff HEAD..HEAD~1 | grep -E "^[+]{1} " | grep -E "server_host" | grep -o -E ">([^<]+)<" | grep -o -E "[^<>]+" | head -n 1)" >> "$GITHUB_OUTPUT"
+        echo "CHECK_PORT=$(git diff HEAD..HEAD~1 | grep -A 1 -E "^[+]{1} " | grep -E "server_port" | grep -o -E "\d+" | head -n 1)" >> "$GITHUB_OUTPUT"
     - name: Check server
       env:
         CHECK_ADDRESS: ${{ steps.extract.outputs.CHECK_ADDRESS }}
