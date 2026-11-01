@@ -588,4 +588,16 @@
     <website_url></website_url>
     <discord_url>https://discord.gg/f4CM9yqGbF</discord_url>
   </ServerItem>
+  <ServerItem>
+    <id>0c4eec44-a1cc-44b9-84b3-9df3e283e54b</id>
+    <name>Dark Destiny</name>
+    <description>Hybrid classic/custom experience. Diverts from Infiltration. Ongoing story arcs. 2 accounts allowed outside sub, unlimited inside. All are welcome!</description>
+    <emu>ACE</emu>
+    <server_host>darkdestiny.xyz</server_host>
+    <server_port>9000</server_port>
+    <type>PvE</type>
+    <status>Development</status>
+    <website_url></website_url>
+    <discord_url>https://discord.gg/6N4dzAbHsx</discord_url>
+  </ServerItem>  
 </ArrayOfServerItem>
